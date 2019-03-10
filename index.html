@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Seek Solar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="css/normalize.css" media="all">
+    <link rel="stylesheet" href="css/landing_style.css" media="all">
+    <link rel="stylesheet" href="css/animate.css">
+    <link
+        href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic|Raleway:400,200,300,500,700,600,800,900'
+        rel='stylesheet' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        function scrolldown1() {
+            $('html, body').animate({
+                scrollTop: $(".app-content").offset().top
+            }, 500);
+            console.log("Scroll Down");
+            // document.getElementById("map").innerHTML = "";
+            initMap();
+        }
+
+        function scrolldown2() {
+            $('html, body').animate({
+                scrollTop: $(".about-section").offset().top
+            }, 500);
+            console.log("Scroll Down");
+        }
+    </script>
+</head>
+
+<body>
+    <div class="arrow bounce" onclick="scrolldown1()" style="z-index:9000;opacity:0.5;"></div>
+    <section class="big-background">
+        <!-- Background video -->
+        <a id="bgndVideo" class="player"
+            data-property="{videoURL:'https://www.youtube.com/watch?v=l79KDwuS16o',containment:'body',autoPlay:true, mute:true, startAt:0, opacity:1}"></a>
+
+        <div class="pattern"></div>
+        <div class="big-background-container">
+            <!-- Different delay animate to create smooth fade in flow -->
+            <h1 class="big-background-title wow fadeIn" data-wow-duration="4s" data-wow-delay="0s">SeekSolar</h1>
+            <div class="divider wow fadeIn" data-wow-duration="4s" data-wow-delay="1.25s"></div>
+            <h1 class="wow fadeIn" id="colorize" data-wow-duration="4s" data-wow-delay="2.25s">Discover Your Roof's
+                Solar Potential</h1>
+            <!-- Search bar link to backend -->
+            <!-- <a href="#" class="big-background-btn">Search Your Address</a> -->
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+                    <!-- Pass address for searching -->
+                    <form action="index.html" method="post">
+                        <div class="input-group wow fadeIn" data-wow-duration="4s" data-wow-delay="3.25s">
+                            <input class="form-control form-control-custom" placeholder="Enter your address here" />
+                            <span class="input-group-btn">
+                                <a href="index.html" class="btn btn-secondary big-background-btn">
+                                    <i class="fa fa-search fa-lg"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <p class="disclaimer wow fadeIn" data-wow-duration="4s" data-wow-delay="2s">Now available in Malaysia</p>
+        </div>
+    </section>
+
+    <section class="app-content" style="height:100%;width:100%;">
+        <div id="map"></div>
+    </section>
+
+    <div class="wrapper" style="min-height:100%;background-color:#F5F5F5">
+        <!-- <div class="arrow bounce" onclick="scrolldown2()" style="z-index:9000;opacity:0.5;background-color:orange;">
+        </div> -->
+        <section class="about-section" style="min-height:100%">
+
+            <div class="about-section-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <h2 class="about-section-title text-primary">ABOUT SEEKSOLAR</h2>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12 text-center">
+                            <div class="about-box">
+                                <i class="fa fa-4x fa-lightbulb-o wow bounceIn text-primary"></i>
+                                <h3>Why we are doing this?</h3>
+                                <p class="text-muted text-justify">
+                                    SEEKSOLAR aims to provide an easy to use platform for everyone to start discovering
+                                    their property's solar potential.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 text-center">
+                            <div class="about-box">
+                                <i class="fa fa-4x fa-sun-o wow bounceIn text-primary" data-wow-delay=".3s"></i>
+                                <h3>How SEEKSOLAR works?</h3>
+                                <p class="text-muted text-justify">
+                                    Step 1: Search your address</br>
+                                    Step 2: Click on roof edges</br>
+                                    Step 3: Set bill and tariff</br>
+
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 text-center">
+                            <div class="about-box">
+                                <i class="fa fa-4x fa-globe text-primary wow bounceIn" data-wow-delay=".6s"></i>
+                                <h3>Our Vision</h3>
+                                <p class="text-muted text-justify">Our vision is to drive solar energy as the main
+                                    source of energy in the world in next 10 years. </br></br>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Feedback Modal Box -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <a href="" target="_blank" role="button" class="about-section-btn">Give Feedback</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="small-background-section">
+        <div class="pattern"></div>
+        <div class="small-background-container">
+            <h2 class="small-background-title"><span>Find us on social media</span></h2>
+            <ul class="socials">
+                <li><a href="#" target="_blank"><i class="fa fa-facebook-square fa-3x"></i></a></li>
+                <li><a href="#" target="_blank"><i class="fa fa-twitter-square fa-3x"></i></a></li>
+                <li><a href="#" target="_blank"><i class="fa fa-google-plus-square fa-3x"></i></a></li>
+            </ul>
+        </div>
+    </section>
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/device.min.js"></script>
+    <script src="js/jquery.mb.YTPlayer.js"></script>
+    <script src="js/custom.js"></script>
+    <!-- CSS + JS animate -->
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- FOR FUTURE USE
+    Modernizr JS 
+    <script scr="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script> -->
+
+    <script>
+        var map;
+        function initMap() {
+            var demoHouseCoords = new google.maps.LatLng(2.992219, 101.525373);
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: demoHouseCoords,
+                mapTypeId: 'satellite',
+                zoom: 21,
+                disableDefaultUI: true,
+                zoomControl: true,
+                scaleControl: true,
+                fullscreenControl: true
+            });
+
+            // Define the LatLng coordinates for the polygon.
+            var demoHousePolyCoords = [
+                { lat: 2.992307, lng: 101.525286 },
+                { lat: 2.992335, lng: 101.525381 },
+                { lat: 2.992147, lng: 101.525442 },
+                { lat: 2.992122, lng: 101.525347 }
+            ];
+
+            // Construct the polygon.
+            var demoHouse = new google.maps.Polygon({
+                paths: demoHousePolyCoords,
+                strokeColor: '#FFFF00',
+                strokeOpacity: 1.0,
+                strokeWeight: 3,
+                fillColor: '#FFFF00',
+                fillOpacity: 0.35
+            });
+            demoHouse.setMap(map);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKmPLH2Lciz2C5oAXVbqOW_zFOejVHEpk"></script>
+</body>
+
+</html>
