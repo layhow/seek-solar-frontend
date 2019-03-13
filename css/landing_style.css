@@ -2,11 +2,12 @@
 ================================================== */
 
 html {
-    height: 100%
+    height: 100%;
+    font-family: 'Lato', sans-serif;
 }
 
 body {
-    font: 15px/23px 'Raleway', sans-serif;
+    font: 15px/23px 'Lato', sans-serif;
     margin: 0;
     padding: 0;
     height: 100%;
@@ -67,7 +68,7 @@ ul li {
 }
 
 .text-primary {
-    color: #00796B;
+    color: #2ecc71;
 }
 
 h3 {
@@ -226,9 +227,9 @@ a.about-section-btn {
     font-size: 14px;
     text-transform: uppercase;
     text-decoration: none;
-    color: #00796B;
+    color: #2ecc71;
     background: transparent;
-    border: 2px solid #00796B;
+    border: 2px solid #2ecc71;
     padding: 10px 14px;
     margin-top: 40px;
     cursor: pointer;
@@ -243,11 +244,11 @@ a.about-section-btn {
 
 .about-section-btn:hover {
     color: #fff;
-    background: #00796B;
+    background: #2ecc71;
 }
 
 hr {
-    border-color: #00796B;
+    border-color: #2ecc71;
     border-width: 3px;
     max-width: 100px;
 }
@@ -350,9 +351,9 @@ hr {
     font-size: 14px;
     text-transform: uppercase;
     text-decoration: none;
-    color: #00796B;
+    color: #2ecc71;
     background: transparent;
-    border: 2px solid #00796B;
+    border: 2px solid #2ecc71;
     padding: 10px 14px;
     cursor: pointer;
     letter-spacing: 2px;
@@ -366,7 +367,7 @@ hr {
 
 .modal-btn-submit:hover {
     color: #fff;
-    background: #00796B;
+    background: #2ecc71;
 }
 
 /* MAP
@@ -378,6 +379,144 @@ hr {
 #map {
     height: 100%;
 }
+
+.map-solar-info-container {
+    max-width: 420px;
+    opacity: 1;
+    position: absolute;
+    transition: opacity 0.3s ease;
+    width: 100%;
+    z-index: 1;
+    margin: 2%
+}
+
+.map-solar-card {
+    position: relative;
+    /* margin: 2%; */
+    background-color: white;
+    /* height: 75%; */
+    /* width: 25%; */
+    background: #FFF;
+    border-radius: 2px;
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+    margin-bottom: 4px;
+    opacity: 1;
+    transition: all 0s ease 0.3s,opacity 0.3s ease 0s;
+}
+
+.map-search-bar {
+    border: 1px solid transparent;
+    border-color: transparent;
+    border-radius: 2px;
+    box-sizing: border-box;
+    font-size: 16px;
+    height: 40px;
+    padding: 0 60px 0 10px;
+    width: 100%;
+}
+
+.map-search-icon {
+    left: calc(100% - 30px);
+    pointer-events: none;
+    color: #9e9e9e;
+    position: absolute;
+    top: 0;
+}
+
+.map-search-bar:focus~.map-search-icon {
+    color: #66afe9;
+}
+
+.map-energy-container {
+    list-style: none;
+    padding: 15px 30px 20px 80px;
+    position: relative;
+}
+
+.map-energy-label {
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.map-info-icon {
+    background-size: 40px;
+    height: 40px;
+    left: 20px;
+    position: absolute;
+    top: 25px;
+    width: 40px;
+}
+
+.map-big-label {
+    font-weight: 900;
+    font-size: 30px;
+    margin-top: 10px;
+}
+
+
+/* MATERIAL DESIGN BUTTON
+================================================== */
+.mdbtn {
+    position: relative;
+  
+    display: block;
+    margin: 10px auto;
+    padding: 0;
+  
+    overflow: hidden;
+  
+    border-width: 0;
+    outline: none;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+    
+    background-color: #2ecc71;
+    color: #ecf0f1;
+    
+    transition: background-color .3s;
+  }
+  
+  .mdbtn:hover, .mdbtn:focus {
+    background-color: #27ae60;
+  }
+  
+  .mdbtn > * {
+    position: relative;
+  }
+  
+  .mdbtn span {
+    display: block;
+    padding: 12px 24px;
+  }
+  
+  .mdbtn:before {
+    content: "";
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    
+    display: block;
+    width: 0;
+    padding-top: 0;
+      
+    border-radius: 100%;
+    
+    background-color: rgba(236, 240, 241, .3);
+    
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  
+  .mdbtn:active:before {
+    width: 120%;
+    padding-top: 120%;
+    
+    transition: width .2s ease-out, padding-top .2s ease-out;
+  }
 
 /* MEDIA QUERIES
 ================================================== */

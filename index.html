@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/normalize.css" media="all">
     <link rel="stylesheet" href="css/landing_style.css" media="all">
     <link rel="stylesheet" href="css/animate.css">
+    <!-- <link rel="stylesheet" href="css/jquery.mb.YTPlayer.css"> -->
     <link
         href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic|Raleway:400,200,300,500,700,600,800,900'
         rel='stylesheet' type='text/css'>
@@ -21,8 +22,11 @@
                 scrollTop: $(".app-content").offset().top
             }, 500);
             console.log("Scroll Down");
-            // document.getElementById("map").innerHTML = "";
             initMap();
+            document.getElementById("totalEnergy").innerHTML = demoTotalEnergy();
+            var maxEarning = 0;
+            $.when(maxEarning = getMaxEarning())
+                .done(document.getElementById("totalROI").innerHTML = numberWithCommas(maxEarning));
         }
 
         function scrolldown2() {
@@ -35,7 +39,7 @@
 </head>
 
 <body>
-    <div class="arrow bounce" onclick="scrolldown1()" style="z-index:9000;opacity:0.5;"></div>
+    <!-- <div class="arrow bounce" onclick="scrolldown1()" style="z-index:9000;opacity:0.5;"></div> -->
     <section class="big-background">
         <!-- Background video -->
         <a id="bgndVideo" class="player"
@@ -55,9 +59,10 @@
                     <!-- Pass address for searching -->
                     <form action="index.html" method="post">
                         <div class="input-group wow fadeIn" data-wow-duration="4s" data-wow-delay="3.25s">
-                            <input class="form-control form-control-custom" placeholder="Enter your address here" />
+                            <input class="form-control form-control-custom" placeholder="Enter your address here"
+                                style="border-radius: 4px 0 0 4px;" />
                             <span class="input-group-btn">
-                                <a href="index.html" class="btn btn-secondary big-background-btn">
+                                <a class="btn btn-secondary big-background-btn" onclick="scrolldown1()">
                                     <i class="fa fa-search fa-lg"></i>
                                 </a>
                             </span>
@@ -70,10 +75,35 @@
     </section>
 
     <section class="app-content" style="height:100%;width:100%;">
+        <div class="map-solar-info-container">
+            <div class="map-solar-card">
+                <input id="pac-input" class="form-control map-search-bar" placeholder="Enter your address here" />
+                <i class="fa fa-search fa-lg map-search-icon" style="line-height:40px"></i>
+            </div>
+            <div class="map-solar-card">
+                <div class="map-energy-container">
+                    <div class="map-energy-label">Amount of free energy on your roof</div>
+                    <img src="img/energy.png" class="map-info-icon">
+                    <div class="map-big-label">
+                        <span id="totalEnergy"></span> MJ annually
+                    </div>
+                </div>
+                <div class="map-energy-container">
+                    <div class="map-energy-label">You can get/save up to</div>
+                    <img src="img/roi.png" class="map-info-icon">
+                    <div class="map-big-label">
+                        RM <span id="totalROI"></span>
+                    </div>
+                </div>
+                <div style="padding:10px">
+                    <button class="mdbtn" type="button" onclick="scrolldown2()"><span>See Details</span></button>
+                </div>
+            </div>
+        </div>
         <div id="map"></div>
     </section>
 
-    <div class="wrapper" style="min-height:100%;background-color:#F5F5F5">
+    <div class="wrapper" style="min-height:100%;background-color:#eeeeee">
         <!-- <div class="arrow bounce" onclick="scrolldown2()" style="z-index:9000;opacity:0.5;background-color:orange;">
         </div> -->
         <section class="about-section" style="min-height:100%">
@@ -82,7 +112,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
-                            <h2 class="about-section-title text-primary">ABOUT SEEKSOLAR</h2>
+                            <h3 class="text-primary">Fine-tune your information to find out how much you could earn/save.</h3>
                             <hr>
                         </div>
                     </div>
@@ -127,7 +157,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4 col-md-offset-4">
-                            <a href="" target="_blank" role="button" class="about-section-btn">Give Feedback</a>
+                            <a href="" target="_blank" role="button" class="about-section-btn">Get In Touch With Provider</a>
                         </div>
                     </div>
                 </div>
@@ -177,27 +207,18 @@
                 fullscreenControl: true
             });
 
-            // Define the LatLng coordinates for the polygon.
-            var demoHousePolyCoords = [
-                { lat: 2.992307, lng: 101.525286 },
-                { lat: 2.992335, lng: 101.525381 },
-                { lat: 2.992147, lng: 101.525442 },
-                { lat: 2.992122, lng: 101.525347 }
-            ];
+            var housePolyCoords = demoPolygonCoord();
 
             // Construct the polygon.
-            var demoHouse = new google.maps.Polygon({
-                paths: demoHousePolyCoords,
-                strokeColor: '#FFFF00',
-                strokeOpacity: 1.0,
-                strokeWeight: 3,
-                fillColor: '#FFFF00',
-                fillOpacity: 0.35
-            });
-            demoHouse.setMap(map);
+            var drawPoly = drawPolygon(housePolyCoords);
+            drawPoly.setMap(map);
+
+            //Calculate area
+            // console.log(getPolygonArea(housePolyCoords.getPath()));
         }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKmPLH2Lciz2C5oAXVbqOW_zFOejVHEpk"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKmPLH2Lciz2C5oAXVbqOW_zFOejVHEpk&libraries=geometry"></script>
 </body>
 
 </html>
