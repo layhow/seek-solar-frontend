@@ -380,6 +380,11 @@ hr {
     height: 100%;
 }
 
+.map-status {
+    font-size: 12px;
+    padding: 15px 20px 0px;
+}
+
 .map-solar-info-container {
     max-width: 420px;
     opacity: 1;
@@ -392,16 +397,21 @@ hr {
 
 .map-solar-card {
     position: relative;
-    /* margin: 2%; */
     background-color: white;
-    /* height: 75%; */
-    /* width: 25%; */
     background: #FFF;
     border-radius: 2px;
-    box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
     margin-bottom: 4px;
     opacity: 1;
-    transition: all 0s ease 0.3s,opacity 0.3s ease 0s;
+    transition: all 0s ease 0.3s, opacity 0.3s ease 0s;
+}
+
+.map-solar-card-button {
+    position: relative;
+    background: transparent;
+    margin-bottom: 4px;
+    opacity: 1;
+    transition: all 0s ease 0.3s, opacity 0.3s ease 0s;
 }
 
 .map-search-bar {
@@ -453,70 +463,65 @@ hr {
     margin-top: 10px;
 }
 
+.map-info {
+    color: #2ecc71;
+}
 
 /* MATERIAL DESIGN BUTTON
 ================================================== */
+
 .mdbtn {
     position: relative;
-  
     display: block;
     margin: 10px auto;
     padding: 0;
-  
     overflow: hidden;
-  
     border-width: 0;
     outline: none;
     border-radius: 2px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
-    
     background-color: #2ecc71;
     color: #ecf0f1;
-    
     transition: background-color .3s;
-  }
-  
-  .mdbtn:hover, .mdbtn:focus {
+    width: 100%;
+}
+
+.mdbtn:hover,
+.mdbtn:focus {
     background-color: #27ae60;
-  }
-  
-  .mdbtn > * {
+}
+
+.mdbtn>* {
     position: relative;
-  }
-  
-  .mdbtn span {
+}
+
+.mdbtn span {
     display: block;
     padding: 12px 24px;
-  }
-  
-  .mdbtn:before {
+}
+
+.mdbtn:before {
     content: "";
-    
     position: absolute;
     top: 50%;
     left: 50%;
-    
     display: block;
     width: 0;
     padding-top: 0;
-      
     border-radius: 100%;
-    
     background-color: rgba(236, 240, 241, .3);
-    
     -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     -o-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-  }
-  
-  .mdbtn:active:before {
+}
+
+.mdbtn:active:before {
     width: 120%;
     padding-top: 120%;
-    
     transition: width .2s ease-out, padding-top .2s ease-out;
-  }
+}
 
 /* MEDIA QUERIES
 ================================================== */
