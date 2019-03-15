@@ -21,11 +21,12 @@ var ICPT = -0.0225;                                  //Imbalance Cost Pass-Throu
 var SERVICE_CHARGE = 0.06;                          //Electric bill service charge
 var DEMO_SOLAR_RADIATION = 18.54;                   //Amount of solar radiation megajoules per day
 var SOLAR_PANEL_DEGRADATION = 1 / 1.01              //Solar Panel degradation per year
-var COST_PER_KWH_LOW = 4500;                            //Verified with +Solar high average is RM9k/kwh, max RM10k/kwh. Solar Bee charged RM7.3K to RM7.75K. Path Green charged RM5K to RM7K.<2015> Solarvest Energy Sdn Bhd charge RM5k to RM6.5k<2018>
+var COST_PER_KWH_LOW = 4500;                        //Verified with +Solar high average is RM9k/kwh, max RM10k/kwh. Solar Bee charged RM7.3K to RM7.75K. Path Green charged RM5K to RM7K.<2015> Solarvest Energy Sdn Bhd charge RM5k to RM6.5k<2018>
 var COST_PER_KWH_HIGH = 6500;
 var LOSSES = 1.25;                                  //How much more needed to be generated due to losses *Verified with +Solar it should be 25% losses
 var ANNUAL_INCREASE_IN_POWER_CONSUMPTION = 1.03;    //Rate of power increase per year
-var USABLE_SUNLIGHT = 4;                            //Take 4 hours of usable sunlight per day on average
+var USABLE_SUNLIGHT = 6;                            //Take 4 hours of usable sunlight per day on average
+var INCREASE_BILL_FACTOR = 0.01 / 5                 //Assumption electricity bill increase 1% every 5 years.
 
 //______________ Map _____________
 function demoPolygonCoord() {
@@ -48,6 +49,7 @@ function demoHouseCoordinates() {
 
 function getPolygonArea(input) {
     var area = Math.round(google.maps.geometry.spherical.computeArea(input) * USABLE_ROOF_AREA);
+    console.log("Roof size: " + area)
     return area;    //in m2   
 }
 
@@ -135,14 +137,16 @@ function kWhToRM(tariff, kWh) {
 }
 
 function getMaxEarning() {
-    var total_energy_on_roof_per_day = (DEMO_SOLAR_RADIATION * 0.277777778) * getPolygonArea(drawPolygon(demoPolygonCoord()).getPath())     //kWH/day
+    var total_energy_on_roof_per_day = (DEMO_SOLAR_RADIATION * 0.277778) * getPolygonArea(drawPolygon(demoPolygonCoord()).getPath())     //kWH/day
     var total_energy_per_month = total_energy_on_roof_per_day * 30;
     var total_energy_generated_by_panel_per_month = total_energy_per_month * SOLAR_PANEL_EFFICIENCY;
+    console.log("total energy gen/mth: " + total_energy_generated_by_panel_per_month)
     var total_earning_based_on_tnb_per_month = kWhToRM(TARIFF_DOMESTIC, total_energy_generated_by_panel_per_month);
     var maxEarning = 0;
     for (i = 0; i < AVERAGE_SOLAR_PANEL_LIFETIME; i++) {
         maxEarning = maxEarning + (total_earning_based_on_tnb_per_month * 12 * SOLAR_PANEL_DEGRADATION);
     }
+    var test = 179*SOLAR_PANEL_EFFICIENCY*DEMO_SOLAR_RADIATION;
     return Math.round(maxEarning);
 }
 
@@ -150,13 +154,14 @@ function getCost(kWh_per_day, area) {
     var demand_per_hour = kWh_per_day / USABLE_SUNLIGHT;
     var system_size = Math.round(demand_per_hour * LOSSES);
     panel_size = Math.ceil(system_size * 5);                                         //1kW panel = 5m2
-    if(system_size < 8) {
+    if (system_size < 8) {
         system_cost = 1000 * Math.round((system_size * COST_PER_KWH_HIGH) / 1000);   //round to nearest 1000s
     }
     else {
         system_cost = 1000 * Math.round((system_size * COST_PER_KWH_LOW) / 1000);    //round to nearest 1000s
-    }                                
+    }
     getPayback(monthy_bill, system_cost);
+    getTotalEnergyOutput(system_size);
     var generation = Math.ceil(100 * panel_size / area);                    //Percentage of used roof for solar panel
     $("#percentage_area").html(generation);
     $("#solar_size").html("(" + panel_size + " m<sup>2</sup>)");
@@ -173,7 +178,7 @@ function getPayback(monthy_bill, system_cost) {
         (1 - ANNUAL_INCREASE_IN_POWER_CONSUMPTION * SOLAR_PANEL_DEGRADATION) / (monthy_bill * 12)) /
         Math.log(ANNUAL_INCREASE_IN_POWER_CONSUMPTION * SOLAR_PANEL_DEGRADATION));
     $("#roi_years").html(payback + " years");
-    getTotalEarning(payback,system_cost);
+    getTotalEarning(payback, system_cost);
     console.log("payback: " + payback);
     return payback;
 }
@@ -181,16 +186,33 @@ function getPayback(monthy_bill, system_cost) {
 function getTotalEarning(payback, system_cost) {
     //This is a very stupid way to calculate payback and need to improve in the future
     var remaining = AVERAGE_SOLAR_PANEL_LIFETIME - payback;
-    var estimated_total_earning = (Math.round((system_cost * remaining) / payback));
-    if(isNaN(estimated_total_earning)) {
+    var estimated_total_earning = Math.round(((system_cost * remaining) / payback) * (1 + (INCREASE_BILL_FACTOR * remaining)));
+    if (isNaN(estimated_total_earning)) {
         estimated_total_earning = 0;
     }
-    $("#total_earning").html("RM " + numberWithCommas(estimated_total_earning));
+    $("#total_earning").html("RM " + numberWithCommas(estimated_total_earning + system_cost));
     console.log(system_cost)
     console.log(estimated_total_earning)
     return estimated_total_earning;
 }
 
+function getTotalEnergyOutput(system_size) {
+    var total_energy = 0;
+    for (i = 0; i < AVERAGE_SOLAR_PANEL_LIFETIME; i++) {
+        total_energy = total_energy + system_size * 30 * SOLAR_PANEL_DEGRADATION;
+    }
+    getCO2Impact(system_size);
+    getTreeImpact(system_size);
+    $("#total_energy").html(numberWithCommas(Math.round(total_energy)) + " kWh");
+}
 
+function getCO2Impact(system_size) {
+    var co2 = Math.round(system_size * 0.5 * 10) / 10;
+    $("#co2").html(co2);
+}
+function getTreeImpact(system_size) {
+    var tree = Math.round(system_size * 12.9 * 10) / 10;
+    $("#tree").html(tree);
+}
 
 //Reference: https://www.theedgemarkets.com/article/going-green-better-returns-solar-investments-expected

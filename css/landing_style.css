@@ -202,7 +202,7 @@ input {
     box-sizing: border-box;
     display: inline-block;
     float: left;
-    height: 270px;
+    height: 250px;
     margin-bottom: 2.1052632%;
     padding: 2%;
     position: relative;
@@ -261,7 +261,7 @@ input {
 
 .about-section {
     font-family: 'Lato', sans-serif;
-    padding: 60px 20px
+    padding: 20px 20px
 }
 
 .about-section-container {
@@ -291,7 +291,7 @@ a.about-section-btn {
     background: transparent;
     border: 2px solid #2ecc71;
     padding: 10px 14px;
-    margin-top: 40px;
+    /* margin-top: 40px; */
     cursor: pointer;
     letter-spacing: 2px;
     text-align: center;

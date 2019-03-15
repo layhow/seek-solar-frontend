@@ -27,7 +27,8 @@
             document.getElementById("totalEnergy").innerHTML = demoTotalEnergy();
             var maxEarning = 0;
             $.when(maxEarning = getMaxEarning())
-                .done(document.getElementById("totalROI").innerHTML = numberWithCommas(maxEarning));
+                .done(document.getElementById("totalROI").innerHTML = numberWithCommas(267547));
+
         }
 
         function scrolldown2() {
@@ -136,7 +137,7 @@
                                     month based on TnB tariff. </div>
                                 <div class="slidecontainer">
                                     <p class="monthly-bill">RM <span id="monthly_bill"></span></p>
-                                    <input type="range" min="0" max="1800" value="50" class="slider" id="myRange">
+                                    <input type="range" min="0" max="2880" value="50" class="slider" id="myRange">
                                 </div>
                             </div>
                         </div>
@@ -155,7 +156,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
-                            <div class="display-box">
+                            <div class="display-box" style="height:360px;">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12">
                                         <img src="img/year.png" class="about-info-icon">
@@ -169,7 +170,7 @@
                                     <div class="col-lg-4 col-md-12">
                                         <img src="img/investment.png" class="about-info-icon">
                                         <div class="about-info-section">
-                                            <div class="bill-label"> Your earning/saving: </div>
+                                            <div class="bill-label"> Your net earning/saving: </div>
                                             <p class="monthly-bill" style="margin-bottom:0;"><span id="total_earning">RM
                                                 </span></p>
                                         </div>
@@ -185,7 +186,28 @@
                                         <span class="bill-small-label">in the entire lifespan of your solar panel</span>
                                     </div>
                                 </div>
-
+                                <div class="row" style="margin-top:40px;">
+                                    <div class="bill-label" style="margin-bottom:20px;">Your annual environmental impact
+                                        from installing your solar panel.</div>
+                                    <div class="col-lg-6 col-md-12">
+                                        <img src="img/co2.png" class="about-info-icon" style="left:160px;">
+                                        <div class="about-info-section">
+                                            <div class="bill-label" style="font-weight:400">Carbon dioxide</div>
+                                            <p class="monthly-bill" style="margin-bottom:0;"><span id="co2">
+                                                </span></p>
+                                        </div>
+                                        <span class="bill-small-label">metric tons</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12">
+                                        <img src="img/trees.png" class="about-info-icon" style="left:160px;">
+                                        <div class="about-info-section">
+                                            <div class="bill-label" style="font-weight:400">Tree seedlings</div>
+                                            <p class="monthly-bill" style="margin-bottom:0;"><span id="tree">
+                                                </span></p>
+                                        </div>
+                                        <span class="bill-small-label">grown for 10 years</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -194,7 +216,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4 col-md-offset-4">
-                            <a href="" target="_blank" role="button" class="about-section-btn">Get In Touch With
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeRSUsEmbe-xe8jYoc5MhXfpiJ_eFHppWa07Uh2Qlte4ffgOg/viewform" target="_blank" role="button" class="about-section-btn">Get In Touch With
                                 Provider</a>
                         </div>
                     </div>
