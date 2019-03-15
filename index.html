@@ -216,11 +216,17 @@
                 fullscreenControl: true
             });
 
-            var housePolyCoords = demoPolygonCoord();
+            // var housePolyCoords = demoPolygonCoord();
+            var housePolyCoords = demoHouseCoordinates();
+
+            housePolyCoords.forEach(function(entry) {
+                var drawPoly = drawPolygon(entry);
+                drawPoly.setMap(map);
+            });
 
             // Construct the polygon.
-            var drawPoly = drawPolygon(housePolyCoords);
-            drawPoly.setMap(map);
+            // var drawPoly = drawPolygon(housePolyCoords);
+            // drawPoly.setMap(map);
 
             //Calculate area
             // console.log(getPolygonArea(housePolyCoords.getPath()));
