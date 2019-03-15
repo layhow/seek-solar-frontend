@@ -134,48 +134,58 @@
                                 <div class="bill-description">By using your average monthly bill we calculate your
                                     electricity usage per
                                     month based on TnB tariff. </div>
+                                <div class="slidecontainer">
+                                    <p class="monthly-bill">RM <span id="monthly_bill"></span></p>
+                                    <input type="range" min="0" max="1800" value="50" class="slider" id="myRange">
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12 text-center">
                             <div class="display-box">
                                 <div class="bill-label"> Your installation cost: </div>
-                                <div class="bill-description">Solar panel system cost for <span></span>% of your roof
-                                    area.</div>
+                                <div class="bill-description">Solar panel system cost for <span
+                                        id="percentage_area"></span>% of your useable roof
+                                    area. Consider this as an investment.</div>
+                                <p class="monthly-bill" style="margin:10px;"><span id="total_investment"></span></p>
+                                <span class="solar-size-label" id="solar_size"></span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-4 col-md-12 text-center">
-                            <div class="about-box">
-                                <i class="fa fa-4x fa-lightbulb-o wow bounceIn text-primary"></i>
-                                <h3>Why we are doing this?</h3>
-                                <p class="text-muted text-justify">
-                                    SEEKSOLAR aims to provide an easy to use platform for everyone to start discovering
-                                    their property's solar potential.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-12 text-center">
-                            <div class="about-box">
-                                <i class="fa fa-4x fa-sun-o wow bounceIn text-primary" data-wow-delay=".3s"></i>
-                                <h3>How SEEKSOLAR works?</h3>
-                                <p class="text-muted text-justify">
-                                    Step 1: Search your address</br>
-                                    Step 2: Click on roof edges</br>
-                                    Step 3: Set bill and tariff</br>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="display-box">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-12">
+                                        <img src="img/year.png" class="about-info-icon">
+                                        <div class="about-info-section">
+                                            <div class="bill-label"> Your ROI period: </div>
+                                            <p class="monthly-bill" style="margin-bottom:0;"><span id="roi_years">
+                                                    years</span></p>
+                                        </div>
+                                        <span class="bill-small-label">and net profit after</span>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <img src="img/investment.png" class="about-info-icon">
+                                        <div class="about-info-section">
+                                            <div class="bill-label"> Your earning/saving: </div>
+                                            <p class="monthly-bill" style="margin-bottom:0;"><span id="total_earning">RM
+                                                </span></p>
+                                        </div>
+                                        <span class="bill-small-label">in the entire lifespan of your solar panel</span>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <img src="img/light-bulb.png" class="about-info-icon">
+                                        <div class="about-info-section">
+                                            <div class="bill-label"> Energy produced: </div>
+                                            <p class="monthly-bill" style="margin-bottom:0;"><span id="total_energy">
+                                                    kWh</span></p>
+                                        </div>
+                                        <span class="bill-small-label">in the entire lifespan of your solar panel</span>
+                                    </div>
+                                </div>
 
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-12 text-center">
-                            <div class="about-box">
-                                <i class="fa fa-4x fa-globe text-primary wow bounceIn" data-wow-delay=".6s"></i>
-                                <h3>Our Vision</h3>
-                                <p class="text-muted text-justify">Our vision is to drive solar energy as the main
-                                    source of energy in the world in next 10 years. </br></br>
-                                </p>
                             </div>
                         </div>
                     </div>
@@ -198,9 +208,9 @@
         <div class="small-background-container">
             <h2 class="small-background-title"><span>Find us on social media</span></h2>
             <ul class="socials">
-                <li><a href="#" target="_blank"><i class="fa fa-facebook-square fa-3x"></i></a></li>
-                <li><a href="#" target="_blank"><i class="fa fa-twitter-square fa-3x"></i></a></li>
-                <li><a href="#" target="_blank"><i class="fa fa-google-plus-square fa-3x"></i></a></li>
+                <li><a href="#" target="_blank"><i class="fab fa-facebook-square"></i></a></li>
+                <li><a href="#" target="_blank"><i class="fab fa-twitter-square"></i></a></li>
+                <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
             </ul>
         </div>
     </section>
@@ -236,10 +246,16 @@
                 fullscreenControl: true
             });
 
+            var marker = new google.maps.Marker({
+                position: demoHouseCoords,
+                map: map,
+                title: 'SEEKSOLAR'
+            });
+
             // var housePolyCoords = demoPolygonCoord();
             var housePolyCoords = demoHouseCoordinates();
 
-            housePolyCoords.forEach(function(entry) {
+            housePolyCoords.forEach(function (entry) {
                 var drawPoly = drawPolygon(entry);
                 drawPoly.setMap(map);
             });

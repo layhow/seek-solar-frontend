@@ -208,9 +208,9 @@ input {
     position: relative;
     width: 100%;
     background: #fafafa;
-    border: 1px solid rgba(0,0,0,0.04);
+    border: 1px solid rgba(0, 0, 0, 0.04);
     border-radius: 2px;
-    box-shadow: 0px 1px 1.5px rgba(0,0,0,0.12), 0px 1px 1px rgba(0,0,0,0.24);
+    box-shadow: 0px 1px 1.5px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.24);
 }
 
 .bill-label {
@@ -222,6 +222,11 @@ input {
     color: #212121;
 }
 
+.bill-small-label {
+    font-size: 13px;
+    padding-left: 20px;
+}
+
 .bill-description {
     font-size: 14px;
     line-height: 1.5em;
@@ -229,6 +234,29 @@ input {
     padding: 15px 15px 20px 15px;
     color: #212121;
     max-width: 90%;
+}
+
+.monthly-bill {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #616161;
+}
+
+.solar-size-label {
+    font-size: 20px;
+    color: #616161;
+}
+
+.about-info-section {
+    padding-left: 20px;
+}
+.about-info-icon {
+    background-size: 40px;
+    height: 40px;
+    left: 40px;
+    position: absolute;
+    top: 20px;
+    width: 40px;
 }
 
 .about-section {
@@ -349,6 +377,10 @@ hr {
 
 .socials a:hover {
     color: #bdc3c7
+}
+
+.fab {
+    font-size: 3em;
 }
 
 /* Modal Box
@@ -557,36 +589,45 @@ hr {
 
 /* RANGE SLIDER
 ================================================== */
-svg {
-    width: 150%;
-    height:150%;
-    visibility: hidden;
-  }
-  
-  .upText,
-  .downText {
-    text-anchor: middle;
-    font-weight: 700;
-    font-size: 14px;
-    fill: #03A9F4;
-    letter-spacing: 0.4px;
-    user-select: none;
-    -webkit-user-select: none;
-    pointer-events: none;
-    text-rendering: optimizeSpeed;
-  }
-  
-  .upText {
-    font-size: 24px;
-  }
-  
-  #dragger{
-  -webkit-tap-highlight-color: rgba(0,0,0,0); 
-  }
-  
-  .downText {
-    letter-spacing: -0.4px;
-  }
+
+.slidecontainer {
+    width: 100%;
+    padding: 15px 60px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 5px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border: 0;
+    background: url('../img/logo_solar.png');
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border: 0;
+    background: url('../img/logo_solar.png');
+    cursor: pointer;
+}
 
 /* MEDIA QUERIES
 ================================================== */
