@@ -161,11 +161,6 @@ function getPayback(monthy_bill, system_cost) {
     return payback;
 }
 
-//___________ Util _____________
-function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
 
 
 //Reference: https://www.theedgemarkets.com/article/going-green-better-returns-solar-investments-expected

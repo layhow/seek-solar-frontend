@@ -198,9 +198,41 @@ input {
 /* ABOUT SECTION
 ================================================== */
 
+.display-box {
+    box-sizing: border-box;
+    display: inline-block;
+    float: left;
+    height: 270px;
+    margin-bottom: 2.1052632%;
+    padding: 2%;
+    position: relative;
+    width: 100%;
+    background: #fafafa;
+    border: 1px solid rgba(0,0,0,0.04);
+    border-radius: 2px;
+    box-shadow: 0px 1px 1.5px rgba(0,0,0,0.12), 0px 1px 1px rgba(0,0,0,0.24);
+}
+
+.bill-label {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 28px;
+    margin: 0 auto;
+    max-width: 75%;
+    color: #212121;
+}
+
+.bill-description {
+    font-size: 14px;
+    line-height: 1.5em;
+    margin: 0 auto;
+    padding: 15px 15px 20px 15px;
+    color: #212121;
+    max-width: 90%;
+}
+
 .about-section {
     font-family: 'Lato', sans-serif;
-    background: #F5F5F5;
     padding: 60px 20px
 }
 
@@ -522,6 +554,39 @@ hr {
     padding-top: 120%;
     transition: width .2s ease-out, padding-top .2s ease-out;
 }
+
+/* RANGE SLIDER
+================================================== */
+svg {
+    width: 150%;
+    height:150%;
+    visibility: hidden;
+  }
+  
+  .upText,
+  .downText {
+    text-anchor: middle;
+    font-weight: 700;
+    font-size: 14px;
+    fill: #03A9F4;
+    letter-spacing: 0.4px;
+    user-select: none;
+    -webkit-user-select: none;
+    pointer-events: none;
+    text-rendering: optimizeSpeed;
+  }
+  
+  .upText {
+    font-size: 24px;
+  }
+  
+  #dragger{
+  -webkit-tap-highlight-color: rgba(0,0,0,0); 
+  }
+  
+  .downText {
+    letter-spacing: -0.4px;
+  }
 
 /* MEDIA QUERIES
 ================================================== */
