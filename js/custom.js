@@ -9,6 +9,19 @@
             $('.big-background, .small-background-section').addClass(
                 'big-background-default-image');
         }
+
+        //Counter
+        var co2_todate = getDOTY() * 74330;
+        var clock = $('.clock').FlipClock(co2_todate, {
+            clockFace: 'Counter',
+            minimumDigits: 6
+        });
+    
+        setTimeout(function() {
+            setInterval(function() {
+                clock.increment();
+            }, 8.5);
+        });
     });
 })(jQuery);
 var monthy_bill = 0;
