@@ -27,7 +27,7 @@
             document.getElementById("totalEnergy").innerHTML = demoTotalEnergy();
             var maxEarning = 0;
             $.when(maxEarning = getMaxEarning())
-                .done(document.getElementById("totalROI").innerHTML = numberWithCommas(267547));
+                .done(document.getElementById("totalROI").innerHTML = numberWithCommas(maxEarning));
 
         }
 
@@ -90,7 +90,7 @@
                     <div class="map-energy-label">Amount of free energy on your roof</div>
                     <img src="img/energy.png" class="map-info-icon">
                     <div class="map-big-label">
-                        <span id="totalEnergy"></span> MJ annually
+                        <span id="totalEnergy"></span> kWh annually
                     </div>
                 </div>
                 <div class="map-energy-container">
@@ -137,7 +137,7 @@
                                     month based on TnB tariff. </div>
                                 <div class="slidecontainer">
                                     <p class="monthly-bill">RM <span id="monthly_bill"></span></p>
-                                    <input type="range" min="0" max="2880" value="50" class="slider" id="myRange">
+                                    <input type="range" min="0" max="1870" value="50" class="slider" id="myRange">
                                 </div>
                             </div>
                         </div>
@@ -168,13 +168,13 @@
                                         <span class="bill-small-label">and net profit after</span>
                                     </div>
                                     <div class="col-lg-4 col-md-12">
-                                        <img src="img/investment.png" class="about-info-icon">
-                                        <div class="about-info-section">
+                                        <img src="img/investment.png" class="about-info-icon" style="left:30px">
+                                        <div class="about-info-section" style="padding-left: 30px">
                                             <div class="bill-label"> Your net earning/saving: </div>
                                             <p class="monthly-bill" style="margin-bottom:0;"><span id="total_earning">RM
                                                 </span></p>
                                         </div>
-                                        <span class="bill-small-label">in the entire lifespan of your solar panel</span>
+                                        <span class="bill-small-label" style="padding-left: 30px">in the entire lifespan of your solar panel</span>
                                     </div>
                                     <div class="col-lg-4 col-md-12">
                                         <img src="img/light-bulb.png" class="about-info-icon">

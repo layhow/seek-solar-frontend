@@ -11,7 +11,7 @@
         }
     });
 })(jQuery);
-var monthy_bill = 330;
+var monthy_bill = 0;
 //_________ Constant _____________
 var SOLAR_PANEL_EFFICIENCY = 0.187;                 //PV solar panel efficiency from https://www.solarpowerrocks.com/solar-basics/how-much-electricity-does-a-solar-panel-produce/
 var USABLE_ROOF_AREA = 0.75;                        //Setback for unusable roof area
@@ -19,14 +19,16 @@ var AVERAGE_SOLAR_PANEL_LIFETIME = 50;              //Lifespan for PV solar pane
 var TARIFF_DOMESTIC = 0;
 var ICPT = -0.0225;                                  //Imbalance Cost Pass-Through (ICPT) RM/kWh  **For Future Use
 var SERVICE_CHARGE = 0.06;                          //Electric bill service charge
-var DEMO_SOLAR_RADIATION = 18.54;                   //Amount of solar radiation megajoules per day
+var DEMO_SOLAR_RADIATION = 18.54 * 0.277778;        //Amount of solar radiation in kWh
 var SOLAR_PANEL_DEGRADATION = 1 / 1.01              //Solar Panel degradation per year
-var COST_PER_KWH_LOW = 4500;                        //Verified with +Solar high average is RM9k/kwh, max RM10k/kwh. Solar Bee charged RM7.3K to RM7.75K. Path Green charged RM5K to RM7K.<2015> Solarvest Energy Sdn Bhd charge RM5k to RM6.5k<2018>
+var COST_PER_KWH_LOW = 5000;                        //Verified with +Solar high average is RM9k/kwh, max RM10k/kwh. Solar Bee charged RM7.3K to RM7.75K. Path Green charged RM5K to RM7K.<2015> Solarvest Energy Sdn Bhd charge RM5k to RM6.5k<2018>
 var COST_PER_KWH_HIGH = 6500;
 var LOSSES = 1.25;                                  //How much more needed to be generated due to losses *Verified with +Solar it should be 25% losses
 var ANNUAL_INCREASE_IN_POWER_CONSUMPTION = 1.03;    //Rate of power increase per year
-var USABLE_SUNLIGHT = 6;                            //Take 4 hours of usable sunlight per day on average
+var USABLE_SUNLIGHT = 4;                            //Take 4 hours of usable sunlight per day on average
 var INCREASE_BILL_FACTOR = 0.01 / 5                 //Assumption electricity bill increase 1% every 5 years.
+
+var roof_area = 0;
 
 //______________ Map _____________
 function demoPolygonCoord() {
@@ -68,7 +70,7 @@ function drawPolygon(polyCoords) {
 }
 
 //_________ Calculation _____________
-function billTokWh(monthy_bill, tariff, return_type) {
+function billTokWh(user_bill, tariff, return_type) {
     var kWh_per_month = 0;
     if (tariff == 0) {
         //Tariffs in RM
@@ -77,27 +79,28 @@ function billTokWh(monthy_bill, tariff, return_type) {
         var tariffA3 = 0.516 + ICPT; var bandA3 = 300; var cumbandA3 = (tariffA3 * bandA3) * (1 + SERVICE_CHARGE) + cumbandA2;
         var tariffA4 = 0.546 + ICPT; var bandA4 = 300; var cumbandA4 = (tariffA4 * bandA4) * (1 + SERVICE_CHARGE) + cumbandA3;
         var tariffA5 = 0.571 + ICPT;   //>900
-        if (monthy_bill <= cumbandA1) {
-            kWh_per_month = Math.round(monthy_bill / tariffA1);
+        if (user_bill <= cumbandA1) {
+            kWh_per_month = Math.round(user_bill / tariffA1);
         }
-        else if (monthy_bill > cumbandA1 && monthy_bill <= cumbandA2) {
-            monthy_bill = monthy_bill - cumbandA1;
-            kWh_per_month = Math.round(monthy_bill / tariffA2) + bandA1;
+        else if (user_bill > cumbandA1 && user_bill <= cumbandA2) {
+            user_bill = user_bill - cumbandA1;
+            kWh_per_month = Math.round(user_bill / tariffA2) + bandA1;
         }
-        else if (monthy_bill > cumbandA2 && monthy_bill <= cumbandA3) {
-            monthy_bill = (monthy_bill - cumbandA2) / (1 + SERVICE_CHARGE);
-            kWh_per_month = Math.round(monthy_bill / tariffA3) + bandA1 + bandA2;
+        else if (user_bill > cumbandA2 && user_bill <= cumbandA3) {
+            user_bill = (user_bill - cumbandA2) / (1 + SERVICE_CHARGE);
+            kWh_per_month = Math.round(user_bill / tariffA3) + bandA1 + bandA2;
         }
-        else if (monthy_bill > cumbandA3 && monthy_bill <= cumbandA4) {
-            monthy_bill = (monthy_bill - cumbandA3) / (1 + SERVICE_CHARGE);
-            kWh_per_month = Math.round(monthy_bill / tariffA4) + bandA1 + bandA2 + bandA3;
+        else if (user_bill > cumbandA3 && user_bill <= cumbandA4) {
+            user_bill = (user_bill - cumbandA3) / (1 + SERVICE_CHARGE);
+            kWh_per_month = Math.round(user_bill / tariffA4) + bandA1 + bandA2 + bandA3;
         }
-        else if (monthy_bill > cumbandA4) {
-            monthy_bill = (monthy_bill - cumbandA4) / (1 + SERVICE_CHARGE);
-            kWh_per_month = Math.round(monthy_bill / tariffA5) + bandA1 + bandA2 + bandA3 + bandA4;
+        else if (user_bill > cumbandA4) {
+            user_bill = (user_bill - cumbandA4) / (1 + SERVICE_CHARGE);
+            kWh_per_month = Math.round(user_bill / tariffA5) + bandA1 + bandA2 + bandA3 + bandA4;
         }
     }
-    console.log("kwh per month:" + kWh_per_month);
+    // monthy_bill = user_bill;
+    console.log("kKh per month:" + kWh_per_month + " kWh per day:" + Math.round(10 * kWh_per_month * 12 / 365) / 10);
     if (return_type == "day") {
         return Math.round(10 * kWh_per_month * 12 / 365) / 10;
     } else if (return_type == "month") {
@@ -107,7 +110,8 @@ function billTokWh(monthy_bill, tariff, return_type) {
 
 function demoTotalEnergy() {
     //Annual Energy = Solar Radiation(MJ/m2/day) * Area(m2) * days
-    return Math.round(DEMO_SOLAR_RADIATION * getPolygonArea(drawPolygon(demoPolygonCoord()).getPath()) * 365);
+    roof_area = getPolygonArea(drawPolygon(demoPolygonCoord()).getPath())
+    return Math.round(DEMO_SOLAR_RADIATION * roof_area * 365);
 }
 
 function kWhToRM(tariff, kWh) {
@@ -137,7 +141,7 @@ function kWhToRM(tariff, kWh) {
 }
 
 function getMaxEarning() {
-    var total_energy_on_roof_per_day = (DEMO_SOLAR_RADIATION * 0.277778) * getPolygonArea(drawPolygon(demoPolygonCoord()).getPath())     //kWH/day
+    var total_energy_on_roof_per_day = DEMO_SOLAR_RADIATION * roof_area     //kWH/day
     var total_energy_per_month = total_energy_on_roof_per_day * 30;
     var total_energy_generated_by_panel_per_month = total_energy_per_month * SOLAR_PANEL_EFFICIENCY;
     console.log("total energy gen/mth: " + total_energy_generated_by_panel_per_month)
@@ -146,7 +150,7 @@ function getMaxEarning() {
     for (i = 0; i < AVERAGE_SOLAR_PANEL_LIFETIME; i++) {
         maxEarning = maxEarning + (total_earning_based_on_tnb_per_month * 12 * SOLAR_PANEL_DEGRADATION);
     }
-    var test = 179*SOLAR_PANEL_EFFICIENCY*DEMO_SOLAR_RADIATION;
+    var test = 179 * SOLAR_PANEL_EFFICIENCY * DEMO_SOLAR_RADIATION;
     return Math.round(maxEarning);
 }
 
@@ -161,6 +165,7 @@ function getCost(kWh_per_day, area) {
         system_cost = 1000 * Math.round((system_size * COST_PER_KWH_LOW) / 1000);    //round to nearest 1000s
     }
     getPayback(monthy_bill, system_cost);
+    getPaybackInYears(monthy_bill, system_cost)
     getTotalEnergyOutput(system_size);
     var generation = Math.ceil(100 * panel_size / area);                    //Percentage of used roof for solar panel
     $("#percentage_area").html(generation);
@@ -177,10 +182,32 @@ function getPayback(monthy_bill, system_cost) {
     var payback = Math.round(Math.log(1 - system_cost *
         (1 - ANNUAL_INCREASE_IN_POWER_CONSUMPTION * SOLAR_PANEL_DEGRADATION) / (monthy_bill * 12)) /
         Math.log(ANNUAL_INCREASE_IN_POWER_CONSUMPTION * SOLAR_PANEL_DEGRADATION));
+    if (isNaN(payback)) {
+        payback = 0;
+    }
     $("#roi_years").html(payback + " years");
     getTotalEarning(payback, system_cost);
-    console.log("payback: " + payback);
+    console.log("Payback: " + payback + "years");
     return payback;
+}
+
+function getPaybackInYears(monthy_bill, system_cost) {
+    var years = 0;
+    var current_earning = 0;
+    var firstYear = true;
+    while (current_earning < system_cost) {
+        if (firstYear) {
+            current_earning = monthy_bill * 12;
+            years++;
+            firstYear = false;
+        }
+        else {
+            current_earning = current_earning + ((monthy_bill * SOLAR_PANEL_DEGRADATION * INCREASE_BILL_FACTOR * ANNUAL_INCREASE_IN_POWER_CONSUMPTION) * 12);
+            years++;
+        }
+    }
+    console.log("New Payback: " + years + " Monthly: " + monthy_bill + " System cost: " + system_cost);
+    return years;
 }
 
 function getTotalEarning(payback, system_cost) {
@@ -190,9 +217,7 @@ function getTotalEarning(payback, system_cost) {
     if (isNaN(estimated_total_earning)) {
         estimated_total_earning = 0;
     }
-    $("#total_earning").html("RM " + numberWithCommas(estimated_total_earning + system_cost));
-    console.log(system_cost)
-    console.log(estimated_total_earning)
+    $("#total_earning").html("RM " + numberWithCommas(estimated_total_earning));
     return estimated_total_earning;
 }
 
