@@ -12,15 +12,27 @@
 
         //Counter
         var co2_todate = getDOTY() * 74330;
+        var stop_flag = false;
         var clock = $('.clock').FlipClock(co2_todate, {
             clockFace: 'Counter',
             minimumDigits: 6
         });
-    
-        setTimeout(function() {
-            setInterval(function() {
-                clock.increment();
+
+        setTimeout(function () {
+            var abc = setInterval(function () {
+                if (stop_flag) {
+                    clearInterval(abc);
+                    for (var i = 0; i < 5; i++) {
+                        setTimeout(function () { clock.increment(); }, 500);
+                    }
+                } else {
+                    clock.increment();
+                }
             }, 8.5);
+        });
+
+        $("#stopCounter").on("click", function () {
+            stop_flag = true;
         });
     });
 })(jQuery);
