@@ -34,6 +34,10 @@
         $("#stopCounter").on("click", function () {
             stop_flag = true;
         });
+        
+        $("#pac-input").on("click", function() {
+            alert("Feature is disable due to bug integration with backend.");
+        })
     });
 })(jQuery);
 var monthy_bill = 0;
